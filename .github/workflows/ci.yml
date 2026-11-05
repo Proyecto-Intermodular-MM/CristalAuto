@@ -1,0 +1,227 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: '3.47.8'
+  CI: true
+
+jobs:
+  format:
+    name: format (dart format + analyze)
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: dart format (verify)
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: flutter analyze
+        run: flutter analyze
+
+  test:
+    name: test
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Test
+        run: flutter test
+
+  build-linux:
+    name: build (linux)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build pkg-config libgtk-3-dev \
+            liblzma-dev libstdc++-12-dev libtinfo6 libncurses5-dev \
+            libssl-dev bison flex
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build Linux
+        run: flutter build linux --release
+
+      - name: Verify artifacts
+        run: |
+          expect=(
+            "build/linux/x64/release/bundle/ui"
+            "build/linux/x64/release/bundle/resources/libapp.so"
+          )
+          for f in "${expect[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "missing: $f"
+              exit 1
+            fi
+            size=$(stat -c%s "$f")
+            echo "$f                       $size bytes"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nyaxis-ui-${{ github.ref_name }}-linux-x64
+          path: build/linux/x64/release/bundle/
+          retention-days: 14
+
+  build-macos:
+    name: build (macos)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build macOS
+        run: flutter build macos --release
+
+      - name: Verify artifacts
+        run: |
+          expect=(
+            "build/macos/Build/Products/Release/ui.app"
+            "build/macos/Build/Products/Release/Frameworks/flutter_backend.framework"
+          )
+          for f in "${expect[@]}"; do
+            if [ ! -d "$f" ]; then
+              echo "missing: $f"
+              exit 1
+            fi
+            size=$(du -sc "$f" | head -1 | cut -f1)
+            echo "$f                       $size bytes"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nyaxis-ui-${{ github.ref_name }}-macos
+          path: build/macos/Build/Products/Release/ui.app/
+          retention-days: 14
+
+  build-android:
+    name: build (android)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Verify artifact
+        run: |
+          f="build/app/outputs/flutter-apk/app-release.apk"
+          if [ ! -f "$f" ]; then
+            echo "missing: $f"
+            exit 1
+          fi
+          size=$(stat -c%s "$f")
+          echo "$f                       $size bytes"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nyaxis-ui-${{ github.ref_name }}-android-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 14
+
+  build-web:
+    name: build (web)
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Enable Web
+        run: flutter config --enable-web
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release
+
+      - name: Verify artifacts
+        run: |
+          expect=(
+            "build/web/index.html"
+            "build/web/main.dart.js"
+          )
+          for f in "${expect[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "missing: $f"
+              exit 1
+            fi
+            size=$(stat -c%s "$f")
+            echo "$f                       $size bytes"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nyaxis-ui-${{ github.ref_name }}-web
+          path: build/web/
+          retention-days: 14
