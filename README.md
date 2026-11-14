@@ -1,260 +1,112 @@
 # CristalAuto
 
-App para encontrar, valorar y contratar **car detailers** (personas que limpian y detallan coches) que se desplazan hasta ti, en la **hora exacta** que tú elijas. Después del servicio, dejas tu reseña.
+> **Limpio como el cristal.**
 
-> Estado del proyecto: esqueleto de Flutter, aún sin funcionalidad. Este README describe el producto que se quiere construir.
+CristalAuto es una app para **comparar, reservar, pagar y valorar lavados de coche a domicilio**. Eliges un lavadero o profesional del detallado por su reputación real, reservas una **hora exacta**, el pago queda retenido hasta que el trabajo está hecho y, al terminar, dejas tu reseña.
+
+| Enlaces | |
+|---|---|
+| Tablero Kanban (GitHub Project) | <https://github.com/orgs/Proyecto-Intermodular-MM/projects/1> |
+| Presentación (Canva) | <https://www.canva.com/d/9wAvFOnrHJSniHq> |
+
+> Estado: esqueleto de Flutter, sin funcionalidad todavía. Este README describe el producto que se va a construir.
 
 ---
 
 ## 1. La idea
 
-Limpiar bien un coche no es lavarlo: es detailing. Pulido, descontaminación, corrección de pintura, tapicería, motor, cerámica. Es un trabajo de especialista, y hoy se contrata por Instagram, WhatsApp o boca a boca: sin precios claros, sin reseñas fiables y sin forma de saber si alguien vendrá a la hora que dice.
+Hoy un lavado o detallado de coche se contrata por Instagram, WhatsApp o boca a boca: sin precios claros, sin reseñas fiables y sin compromiso de hora. CristalAuto resuelve las tres cosas en una sola app:
 
-CristalAuto resuelve las tres cosas en una sola app:
+1. **Compara**: valoración media, número de reseñas, servicios y precios de cada lavadero.
+2. **Reserva**: eliges día y hora exacta; el profesional va a tu domicilio.
+3. **Valora**: solo puede reseñar quien completó la cita, así que las reseñas son verificadas.
 
-1. **Ver cómo trabaja cada detailer** — valoración media, número de reseñas, fotos de antes y después, servicios y precios.
-2. **Reservar en una hora exacta** — tú dices día y hora, el detailer viene a tu dirección y limpia el coche allí.
-3. **Volver a valorarlo** — solo puedes reseñar si el servicio se completó, y la reseña alimenta la reputación que ven los siguientes clientes.
+El **pago se retiene** hasta que el servicio está hecho. CristalAuto cobra una **comisión por servicio completado**.
 
-Es un marketplace de servicios a domicilio con reputación verificada y agenda por franjas exactas.
+**Diferencial:** reseñas verificadas, pago retenido y reserva a domicilio con hora exacta.
 
----
+## 2. Equipo y roles
 
-## 2. Problema que resuelve
+| Persona | Usuario GitHub | Roles |
+|---|---|---|
+| Thiago Montblanch | `Cupid-OS` | CEO, CMO y diseño |
+| Aram Aljundi | `nyarw` | CTO y CIO |
+| Jose Ortega | `jekooo2814` | CFO y CTO |
 
-**Para el dueño del coche**
+Cada persona tiene tareas asignadas en el Kanban según su rol.
 
-- No sabe a quién contratar ni cuánto debería costar.
-- Las reseñas que encuentra están fuera de contexto (Instagram, grupos, comentarios sueltos).
-- No hay compromiso horario: "te aviso cuando pueda" no es una cita.
-- No hay garantía de que el trabajo se haya hecho ni forma de reclamar.
+## 3. Mayor rival
 
-**Para el detailer**
+**Milanuncios**: es el sitio más reconocible donde hoy se anuncian lavaderos y particulares, pero no ofrece reserva con hora, pago protegido ni reseñas verificadas. Otros referentes del mercado: Washfy, Chemical Guys y Elefanteazul.
 
-- Depende de seguidores y mensajes para conseguir clientes.
-- Pierde horas contestando presupuestos que no cierran.
-- No tiene historial público de su trabajo que le diferencie de un lavacoches.
-- Su agenda es un cuaderno o su memoria.
+## 4. Análisis FODA
 
-**Con la app**
+| | |
+|---|---|
+| **Fortalezas** | Reseñas verificadas · pago retenido · reserva a domicilio con hora exacta · costes de arranque muy bajos |
+| **Oportunidades** | Mercado fragmentado, lavaderos pequeños sin presencia digital · mucho parque de coches y poca oferta online · expansión a otros servicios del coche |
+| **Debilidades** | Marca nueva sin base de usuarios · equipo de 3 personas · hay que captar a la vez lavaderos y clientes |
+| **Amenazas** | Milanuncios y Washfy ya tienen usuarios · competidores con más presupuesto · reseñas falsas o mala calidad dañan la marca · cambios normativos en pagos y comisiones |
 
-- El cliente compara por reputación real y reserva con hora fija.
-- El detailer publica su catálogo, define su zona y su disponibilidad, y recibe citas confirmadas.
+## 5. CEO: organización del proyecto
 
----
+- Repositorio con este `README.md`.
+- **Project Kanban** asociado con las columnas **To do, Doing, Done y Approved**: <https://github.com/orgs/Proyecto-Intermodular-MM/projects/1>.
+- Todas las tareas están escritas como issues, **no se borran** y cada una está asignada según el rol (CEO/diseño → Thiago, CTO → Aram, CFO → Jose).
+- Estrategia: ciudad piloto, captar primero lavaderos locales y después usuarios. Hoja de ruta estimada: mes 1 MVP, meses 2-3 piloto con 10 lavaderos, mes 4 en adelante ampliar a más ciudades.
 
-## 3. Usuarios
+## 6. Diseño
 
-### Cliente
-Dueño de un coche que quiere que se lo limpien y detallen en su casa o trabajo, sin moverse, y con la tranquilidad de saber quién viene.
+- **Nombre:** CristalAuto (fácil de decir y recordar en España; sustituye al nombre inicial, difícil de pronunciar).
+- **Logo:** gota de agua azul con un coche dentro y destellos.
+- **Eslogan:** *Limpio como el cristal.* (apoyo: «Tu coche impecable, sin moverte de casa»).
+- **Colores:** primario azul noche `#1A233C` y secundario crema `#F4F0D2` (tonos mates); acentos saturados amarillo brillo `#FFC30F` y azul agua `#3FA9F5`.
+- **Tipografía:** Montserrat ExtraBold (títulos) y Poppins Regular (textos y botones).
 
-### Detailer
-Profesional o autónomo del detailing que ofrece servicio a domicilio, gestiona su disponibilidad y construye reputación dentro de la plataforma.
+## 7. CTO: necesidades técnicas
 
-### Admin (interno)
-Modera reseñas, resuelve disputas, verifica identidad de detailers y gestiona cancelaciones problemáticas.
+| Necesidad | Decisión |
+|---|---|
+| Lenguajes | Dart (app) y TypeScript (API) |
+| Frameworks | Flutter (Android, iOS y web) y NestJS |
+| Base de datos | Supabase (PostgreSQL) con autenticación y permisos por rol: usuarios, lavaderos, servicios, reservas, reseñas y pagos |
+| IA | Claude Code como asistente para programar y revisar código |
+| Despliegue | Oracle Cloud (capa gratuita) para la API y la web |
+| Dominio | `cristalauto.app` |
+| HTTPS | Let's Encrypt con certbot (gratis y con renovación automática) |
+| Dependencias | Renovate bot abre pull requests de actualización |
 
----
+## 8. CFO: dinero
 
-## 4. Flujo principal del cliente
+**Ingresos**
+- **Comisión por reserva:** 5-10 % al inicio, 10-15 % con el servicio consolidado.
+- **Anuncios** poco invasivos (Google Ads) en app y web para cubrir el hosting; nunca durante la reserva ni el pago.
 
-1. **Buscar**
-   Abre la app y ve una lista de detailers ordenada por valoración (con filtros: tipo de servicio, precio, distancia, disponibilidad para hoy o para una fecha concreta).
+**Costes (estimación)**
+- Inicial, una sola vez: unos **440 €** (dominio 15 €, Google Play 25 €, Apple Developer 99 €, marketing de lanzamiento 300 €; Oracle, Supabase y HTTPS en plan gratuito).
+- Mantenimiento: unos **153 €/mes** (Supabase Pro 23 €, Claude Code 20 €, dominio y Apple prorrateados 9,5 €, marketing 100 €).
 
-2. **Comparar**
-   Cada tarjeta muestra foto del antes/después, nombre, valoración media con estrellas, número de reseñas, precio desde, radio de cobertura y próxima disponibilidad.
+**Punto de equilibrio:** con un ticket medio de 40 € y comisión del 10 % se ingresan 4 € por servicio, así que bastan unos **39 servicios al mes** para cubrir el mantenimiento. Las cifras son estimaciones a validar con el piloto.
 
-3. **Ver perfil**
-   - Galería de trabajos.
-   - Servicios con precio y duración estimada (ej. *Lavado premium — 90 min — 45 €*; *Corrección de pintura — 5 h — 280 €*).
-   - Reseñas con estrellas, texto, fotos del resultado y respuesta del detailer.
-   - Zona de cobertura y recargo por desplazamiento, si lo hay.
+## 9. Funcionamiento resumido
 
-4. **Elegir servicio y hora**
-   - Selecciona el servicio.
-   - Elige día y **hora exacta** en el calendario de huecos disponibles reales del detailer (no es un "te llamo luego": es un slot bloqueado).
-   - Indica dirección (con geolocalización), tipo de coche y notas ("está muy sucio por dentro", "aparcado en garaje", "hay toma de agua").
+**Cliente:** busca y compara → abre el perfil → elige servicio y hora exacta → confirma y paga (retenido) → sigue el estado de la cita → reseña tras completarla.
 
-5. **Confirmar**
-   - Resumen con precio desglosado: servicio + desplazamiento + extras.
-   - Método de pago (tarjeta; el cobro se retiene hasta que el servicio se marca como completado).
-   - El detailer acepta o el hueco se confirma automáticamente, según su configuración.
+**Lavadero / detailer:** alta y verificación → catálogo de servicios con precio y duración → zona y agenda → gestiona citas (aceptar, en camino, en curso, completada) → construye su reputación.
 
-6. **Seguimiento**
-   - Estado de la cita: *confirmada → en camino → en curso → completada / cancelada*.
-   - Notificaciones y contacto dentro de la app.
+**Reglas clave:** solo se reseña una cita completada, una reseña por cita, el cobro se captura al completar el servicio y se reembolsa si se cancela en plazo o no se presta.
 
-7. **Reseñar**
-   - Al pasar a *completada* se habilita la reseña (una por cita, dentro de una ventana de 30 días).
-   - Valoración de 1 a 5 estrellas + texto + fotos opcionales.
-   - La reseña es pública y no se puede borrar; el detailer puede responder una vez.
+## 10. Alcance del MVP
 
----
+Registro y login, búsqueda con filtros y reputación, perfil con servicios y reseñas, reserva con hora exacta y dirección, estados de la cita, pago con retención y reseña posterior. Quedan fuera por ahora: chat en tiempo real, suscripciones, cupones y facturación de flotas.
 
-## 5. Flujo principal del detailer
-
-1. **Alta y verificación**
-   - Registro con datos, documento de identidad y, opcionalmente, alta de autónomo o seguro.
-   - Verificación por el equipo antes de recibir la primera cita (evita perfiles fantasma).
-
-2. **Perfil y catálogo**
-   - Foto, bio, años de experiencia, productos que usa.
-   - Servicios con precio, duración estimada y qué incluye cada uno.
-   - Fotos de antes/después por trabajo.
-
-3. **Zona y agenda**
-   - Radio de cobertura en km y recargo opcional por distancia.
-   - Disponibilidad semanal recurrente + excepciones puntuales (vacaciones, día libre).
-   - Tiempo de desplazamiento entre citas para no solapar huecos.
-
-4. **Gestión de citas**
-   - Bandeja de solicitudes con aceptar / rechazar / proponer otra hora.
-   - Vista de calendario con las citas del día y la dirección de cada una.
-   - Marcar *en camino*, *en curso*, *completada*. Al completar se libera el pago.
-
-5. **Reputación**
-   - Media de estrellas, desglose por servicio y por criterio (puntualidad, resultado, trato).
-   - Responder reseñas.
-   - Las cancelaciones injustificadas del detailer penalizan su posición en la búsqueda.
-
----
-
-## 6. Reglas de negocio importantes
-
-**Reseñas**
-
-- Solo se puede reseñar una cita en estado *completada*.
-- Una reseña por cita, no editable después de publicar (se puede reportar y moderar).
-- La valoración media que se muestra en la búsqueda se calcula ponderando el número de reseñas, para que un perfil con una sola reseña de 5 estrellas no adelante a uno con 200 de 4,8.
-- Las reseñas sin texto y solo estrellas cuentan menos visualmente, pero cuentan igual en la media.
-- Reportar → moderación → retirar solo si incumple normas (insultos, datos personales, contenido falso).
-
-**Citas y hora exacta**
-
-- El cliente elige un hueco, no un "rango aproximado".
-- Cada servicio tiene una duración estimada; el hueco se bloquea por esa duración + margen de desplazamiento.
-- Cancelación gratuita hasta X horas antes; después, penalización según política.
-- Reprogramación permitida si ambas partes aceptan el nuevo hueco.
-- Si el detailer no llega y no cancela, se reembolsa y penaliza su perfil.
-
-**Pagos**
-
-- Cobro autorizado al confirmar, capturado al marcar *completada*.
-- Reembolso automático si se cancela dentro de plazo o no se presta el servicio.
-- Propinas opcionales tras la reseña.
-
-**Confianza**
-
-- El detailer no puede eliminar una cita que ya tiene reseña.
-- Fotos de antes/después verificables por fecha de la cita.
-- Bloqueo de reseñas cruzadas entre cuentas vinculadas.
-
----
-
-## 7. Pantallas previstas (MVP)
-
-**Cliente**
-
-- `Home / Descubrir`: lista de detailers ordenada por reputación, buscador y filtros.
-- `Perfil de detailer`: galería, servicios, reseñas.
-- `Reserva`: selección de servicio, calendario de huecos, dirección, notas.
-- `Confirmación y pago`.
-- `Mis citas`: próximas, historial, estados.
-- `Detalle de cita`: estado, contacto, cancelar/reprogramar, botón de reseña.
-- `Escribir reseña`: estrellas, texto, fotos.
-- `Mi cuenta`: coches guardados, direcciones, métodos de pago.
-
-**Detailer**
-
-- `Panel`: citas de hoy, ingresos, valoración.
-- `Calendario / disponibilidad`.
-- `Mis servicios` (CRUD con precio y duración).
-- `Reseñas` y respuestas.
-- `Perfil público` (vista previa).
-
----
-
-## 8. Modelo de datos (borrador)
-
-```
-User            (id, rol, nombre, email, teléfono, foto, verificado)
-Vehicle         (id, userId, marca, modelo, color, matrícula, notas)
-DetailerProfile (id, userId, bio, experiencia, radioKm, recargoKm,
-                 ratingAvg, ratingCount, verificado)
-Service         (id, detailerId, nombre, descripción, precio, duraciónMin, activo)
-Availability    (id, detailerId, díaSemana, horaInicio, horaFin, excepción)
-Booking         (id, clienteId, detailerId, serviceId, vehicleId,
-                 inicio, fin, dirección, lat, lng, notas,
-                 estado, precioTotal, estadoPago)
-Review          (id, bookingId, clienteId, detailerId,
-                 estrellas, texto, fotos, creadaEn, respuestaDetailer)
-Payment         (id, bookingId, importe, autorizado, capturado, reembolsado)
-```
-
-Estados de `Booking`: `pendiente → confirmada → enCamino → enCurso → completada` / `cancelada` / `noPresentado`.
-
----
-
-## 9. Stack técnico
-
-- **App**: Flutter (ya inicializado en este repo), Android + iOS + web. Una sola base de código, Material 3.
-- **Estado**: se decidirá con la implementación (Riverpod o Bloc; preferible Riverpod por simplicidad).
-- **Backend**: API REST o Supabase/Firebase. Necesita autenticación, almacenamiento de fotos, geolocalización y notificaciones push.
-- **Pagos**: Stripe (Connect para pagar a los detailers) o equivalente local.
-- **Mapas**: Google Maps / Mapbox para dirección, radio de cobertura y navegación del detailer.
-
----
-
-## 10. Alcance
-
-**Dentro del MVP**
-
-- Registro/login de clientes y detailers.
-- Búsqueda con filtros y reputación.
-- Perfil de detailer con servicios y reseñas.
-- Reserva con hora exacta y dirección.
-- Gestión de estados de la cita.
-- Reseña posterior al servicio.
-- Pago con retención y captura al completar.
-
-**Fuera del MVP (después)**
-
-- Chat en tiempo real (basta con notificaciones y teléfono al principio).
-- Suscripciones o planes de mantenimiento periódico.
-- Programa de fidelización y cupones.
-- Facturación automática para empresas con flota.
-- Analytics avanzado para el detailer.
-
----
-
-## 11. Roadmap sugerido
-
-1. **Fundación** — modelo de datos, autenticación, roles, perfiles.
-2. **Catálogo y reputación** — servicios, fotos, media ponderada de reseñas.
-3. **Agenda** — disponibilidad recurrente, huecos reales, antisolape.
-4. **Reserva** — flujo completo de cita con estados.
-5. **Pago** — autorización, captura, reembolso.
-6. **Reseñas** — solo tras cita completada, respuesta del detailer, moderación.
-7. **Pulido** — notificaciones, mapas, verificación de identidad, panel admin.
-
----
-
-## 12. Desarrollo
+## 11. Desarrollo
 
 ```bash
 flutter pub get
 flutter run
-```
-
-```bash
 flutter test        # tests
 flutter analyze     # lints
 ```
 
-Estructura relevante:
-
-```
-lib/main.dart       # punto de entrada (plantilla por defecto)
-lib/                # aquí va el código de la app
-test/               # tests
-```
+Para colaborar, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
