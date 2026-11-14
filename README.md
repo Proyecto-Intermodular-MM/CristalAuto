@@ -53,6 +53,9 @@ Cada persona tiene tareas asignadas en el Kanban según su rol.
 - Repositorio con este `README.md`.
 - **Project Kanban** asociado con las columnas **To do, Doing, Done y Approved**: <https://github.com/orgs/Proyecto-Intermodular-MM/projects/1>.
 - Todas las tareas están escritas como issues, **no se borran** y cada una está asignada según el rol (CEO/diseño → Thiago, CTO → Aram, CFO → Jose).
+- **Misión:** que cualquier conductor compare, reserve, pague y valore un lavado en una sola app, con reseñas verificadas y pago protegido.
+- **Visión:** ser la app de referencia en España para contratar servicios de cuidado del coche a domicilio.
+- **Ciudad piloto (propuesta):** Madrid, a confirmar por el equipo. Detalle y justificación en [docs/mision-vision.md](docs/mision-vision.md).
 - Estrategia: ciudad piloto, captar primero lavaderos locales y después usuarios. Hoja de ruta estimada: mes 1 MVP, meses 2-3 piloto con 10 lavaderos, mes 4 en adelante ampliar a más ciudades.
 
 ## 6. Diseño
@@ -110,3 +113,15 @@ flutter analyze     # lints
 ```
 
 Para colaborar, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## 12. Documentación
+
+| Documento | Contenido |
+|---|---|
+| [docs/mision-vision.md](docs/mision-vision.md) | Misión, visión y ciudad piloto |
+| [docs/rival.md](docs/rival.md) | Análisis del rival y la competencia |
+| [docs/captacion.md](docs/captacion.md) | Plan de captación (borrador) |
+| [docs/guion-exposicion.md](docs/guion-exposicion.md) | Guion y reparto de la exposición (≈ 10 min 40 s) |
+| [docs/guia-de-estilo.md](docs/guia-de-estilo.md) | Colores, tipografía y marca |
+| [docs/diseno/prototipo.html](docs/diseno/prototipo.html) | Prototipo de pantallas |
+| [docs/finanzas/](docs/finanzas/) | Comisiones, costes, validación de precios, publicidad y previsión a 12 meses |
