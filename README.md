@@ -7,9 +7,9 @@ CristalAuto es una app para **comparar, reservar, pagar y valorar lavados de coc
 | Enlaces | |
 |---|---|
 | Tablero Kanban (GitHub Project) | <https://github.com/orgs/Proyecto-Intermodular-MM/projects/1> |
-| Presentación (Canva) | <https://www.canva.com/d/9wAvFOnrHJSniHq> |
+| Presentación (Canva) | <https://www.canva.com/d/SaNKTR3gMCf32qh> |
 
-> Estado: esqueleto de Flutter, sin funcionalidad todavía. Este README describe el producto que se va a construir.
+> Estado: MVP en Flutter con datos de ejemplo en memoria (comparar, reservar, seguimiento de la cita y reseña verificada), sin backend todavía. `flutter test` pasa (6 pruebas).
 
 ---
 
@@ -108,7 +108,7 @@ Registro y login, búsqueda con filtros y reputación, perfil con servicios y re
 ```bash
 flutter pub get
 flutter run
-flutter test        # tests
+flutter test        # tests (reglas del negocio y flujo completo)
 flutter analyze     # lints
 ```
 
@@ -118,6 +118,9 @@ Para colaborar, consulta [CONTRIBUTING.md](CONTRIBUTING.md).
 
 | Documento | Contenido |
 |---|---|
+| [docs/lavaderos-piloto.md](docs/lavaderos-piloto.md) | 10 lavaderos objetivo del piloto, con fuente |
+| [docs/cto-despliegue.md](docs/cto-despliegue.md), [docs/cto-pagos.md](docs/cto-pagos.md) | Guía de despliegue y diseño de la pasarela de pago |
+| [supabase/](supabase/) | Esquema SQL de la base de datos y prueba local |
 | [docs/mision-vision.md](docs/mision-vision.md) | Misión, visión y ciudad piloto |
 | [docs/rival.md](docs/rival.md) | Análisis del rival y la competencia |
 | [docs/captacion.md](docs/captacion.md) | Plan de captación (borrador) |

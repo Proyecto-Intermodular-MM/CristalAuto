@@ -1,8 +1,8 @@
-# Plan de captación (borrador de CEO #3)
+# Plan de captación (CEO #3)
 
 Estrategia: **primero lavaderos, después usuarios**. Sin oferta no hay app útil; con 10 lavaderos en la ciudad piloto ya se puede abrir a clientes.
 
-> Estado: borrador. **Falta la lista de 10 lavaderos objetivo**, que depende de confirmar la ciudad ([mision-vision.md](mision-vision.md)) y de buscar contactos reales (Google Maps, Instagram, Milanuncios). No se han inventado nombres.
+> La lista de 10 lavaderos objetivo está en [lavaderos-piloto.md](lavaderos-piloto.md): negocios reales de Madrid verificados en sus webs el 14-11-2026. La ciudad es una propuesta pendiente de confirmar ([mision-vision.md](mision-vision.md)).
 
 ## 1. Criterios para elegir los 10 lavaderos
 
@@ -11,11 +11,7 @@ Estrategia: **primero lavaderos, después usuarios**. Sin oferta no hay app úti
 - Zona concreta (uno o dos distritos) para que las citas sean viables.
 - Variedad: 5 de lavado básico y 5 de detallado (pulido, tapicería).
 
-Plantilla de la lista (rellenar):
-
-| # | Negocio | Zona | Contacto | Servicios | Estado |
-|---|---|---|---|---|---|
-| 1-10 | | | | | |
+Lista completa con fuente: [lavaderos-piloto.md](lavaderos-piloto.md).
 
 ## 2. Mensaje de contacto (borrador)
 

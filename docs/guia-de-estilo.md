@@ -5,7 +5,7 @@ Para el CTO y quien use la identidad en la app y el Canva. Parte de las decision
 ## Marca
 
 - **Nombre:** CristalAuto (fácil de decir y recordar en España).
-- **Logo:** gota de agua azul con un coche dentro y destellos. *Pendiente: añadir el archivo original del logo (SVG o PNG) a `assets/`; este repositorio no lo contiene aún.*
+- **Logo:** gota de agua azul con un coche dentro y destellos: [assets/logo.svg](../assets/logo.svg) y [assets/logo.png](../assets/logo.png) (512×512, fondo transparente). Es una versión vectorial hecha según la descripción del diseño; si Thiago tiene el logo original de Canva, puede sustituir estos archivos.
 - **Eslogan:** «Limpio como el cristal.» Apoyo: «Tu coche impecable, sin moverte de casa».
 
 ## Colores
@@ -17,7 +17,7 @@ Para el CTO y quien use la identidad en la app y el Canva. Parte de las decision
 | Acento 1 (botones principales, avisos) | Amarillo brillo | `#FFC30F` |
 | Acento 2 (enlaces, iconos) | Azul agua | `#3FA9F5` |
 
-Los colores primario y secundario son mates y de uso general; los acentos son más saturados y se usan en pequeñas dosis. Los tokens están en [assets/colores.json](../assets/colores.json) y [assets/colores.dart](../assets/colores.dart).
+Los colores primario y secundario son mates y de uso general; los acentos son más saturados y se usan en pequeñas dosis. Los tokens están en [assets/colores.json](../assets/colores.json) y [lib/colores.dart](../lib/colores.dart).
 
 Contraste: el texto crema sobre azul noche y el azul noche sobre amarillo brillo cumplen holgadamente el contraste recomendado; evitar texto amarillo sobre crema.
 

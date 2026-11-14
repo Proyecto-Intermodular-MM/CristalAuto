@@ -1,6 +1,6 @@
 # Guion de la exposición (≈ 10 min 40 s)
 
-El enunciado pide una exposición de **9 a 12 minutos**. Las notas actuales del Canva suman unos **15 min 20 s** (20 + 15 + 75 + 30 + 60 + 45 + 45 + 75 + 75 + 30 + 75 + 30 + 90 + 75 + 60 + 60 + 45 + 15 segundos), así que se pasan. Este guion recorta cada diapositiva y reparte los turnos de forma más equilibrada. Las 18 diapositivas son las de [Radiografía del sector - CristalAuto](https://www.canva.com/d/9wAvFOnrHJSniHq).
+El enunciado pide una exposición de **9 a 12 minutos**. Las notas actuales del Canva suman unos **15 min 20 s** (20 + 15 + 75 + 30 + 60 + 45 + 45 + 75 + 75 + 30 + 75 + 30 + 90 + 75 + 60 + 60 + 45 + 15 segundos), así que se pasan. Este guion recorta cada diapositiva (las notas recortadas están ya en una copia del Canva: [Radiografía del sector - guion 10-11 min](https://www.canva.com/d/Td51zv7NdWZ5Nsz), donde además la diapositiva 16 muestra el equilibrio en ~49 servicios con pasarela) y reparte los turnos de forma más equilibrada. Las 18 diapositivas son las de [Radiografía del sector - CristalAuto](https://www.canva.com/d/SaNKTR3gMCf32qh).
 
 > Regla: no leer la diapositiva; contar la idea con palabras propias. Ensayar con cronómetro y ajustar (el margen es de ±1 min).
 

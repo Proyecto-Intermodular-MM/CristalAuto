@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CristalAuto: gota de agua con un coche y destellos">
+  <title>CristalAuto</title>
+  <path d="M256 36C256 36 96 204 96 316a160 160 0 0 0 320 0C416 204 256 36 256 36Z" fill="#3FA9F5"/>
+  <path d="M256 60C256 60 118 210 118 316c0 21 4 41 11 59C108 345 112 262 176 190 214 148 256 100 256 60Z" fill="#fff" opacity=".22"/>
+  <!-- coche -->
+  <g fill="#1A233C">
+    <path d="M150 352v-34c0-9 6-17 15-19l17-4 23-38c4-7 11-11 19-11h64c8 0 15 4 19 11l23 38 17 4c9 2 15 10 15 19v34c0 5-4 9-9 9h-14a30 30 0 0 1-60 0H233a30 30 0 0 1-60 0h-14c-5 0-9-4-9-9Z"/>
+  </g>
+  <path d="M215 296l15-26h52l15 26Z" fill="#F4F0D2"/>
+  <circle cx="203" cy="361" r="23" fill="#F4F0D2"/><circle cx="203" cy="361" r="11" fill="#1A233C"/>
+  <circle cx="309" cy="361" r="23" fill="#F4F0D2"/><circle cx="309" cy="361" r="11" fill="#1A233C"/>
+  <rect x="159" y="322" width="22" height="10" rx="5" fill="#FFC30F"/>
+  <rect x="331" y="322" width="22" height="10" rx="5" fill="#FFC30F"/>
+  <!-- destellos -->
+  <g fill="#FFC30F">
+    <path d="M390 120l10 28 28 10-28 10-10 28-10-28-28-10 28-10Z"/>
+    <path d="M118 146l6 16 16 6-16 6-6 16-6-16-16-6 16-6Z"/>
+    <path d="M402 250l5 13 13 5-13 5-5 13-5-13-13-5 13-5Z"/>
+  </g>
+</svg>

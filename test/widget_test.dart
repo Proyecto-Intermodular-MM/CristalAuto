@@ -1,30 +1,49 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:cristal_auto/main.dart';
+import 'package:cristal_auto/repositorio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:cristal_auto/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('flujo completo: comparar, reservar, completar y reseñar', (tester) async {
+    final repo = Repositorio();
+    await tester.pumpWidget(CristalAutoApp(repositorio: repo));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 1) La lista muestra los lavaderos, el mejor valorado primero
+    expect(find.text('Detailing Ejemplo B'), findsOneWidget);
+    await tester.tap(find.text('Lavadero Ejemplo A'));
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // 2) Detalle: reserva del lavado completo
+    expect(find.text('Reseñas verificadas'), findsOneWidget);
+    await tester.tap(find.text('Reservar 40 €'));
+    await tester.pumpAndSettle();
+
+    // 3) Reserva: hora exacta y dirección
+    await tester.tap(find.text('10:00'));
+    await tester.enterText(find.byType(TextField), 'Calle Ejemplo 1');
+    await tester.ensureVisible(find.text('Confirmar y pagar'));
+    await tester.tap(find.text('Confirmar y pagar'));
+    await tester.pumpAndSettle();
+    expect(repo.reservas, hasLength(1));
+
+    // 4) Mis reservas: avanzar hasta completar y reseñar
+    await tester.tap(find.byTooltip('Mis reservas'));
+    await tester.pumpAndSettle();
+    expect(find.text('Estado: Pendiente'), findsOneWidget);
+    expect(find.textContaining('Pago retenido'), findsOneWidget);
+    for (var i = 0; i < 4; i++) {
+      await tester.tap(find.text('Avanzar estado'));
+      await tester.pump();
+    }
+    expect(find.text('Estado: Completada'), findsOneWidget);
+    expect(find.textContaining('Pago liberado'), findsOneWidget);
+    await tester.tap(find.text('Dejar reseña'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('estrella4')));
     await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.text('Publicar reseña'));
+    await tester.pumpAndSettle();
+    expect(find.text('Tu reseña: ★★★★'), findsOneWidget);
+    expect(repo.lavaderos.first.resenas, isNotEmpty);
   });
 }
