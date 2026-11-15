@@ -20,7 +20,7 @@ Una autorización de tarjeta caduca (en general en torno a 7 días). Reservas co
 
 ## Esquema y seguridad
 
-- La tabla `pagos` del esquema de base de datos (estados `retenido`, `capturado`, `reembolsado`, `fallido`) y solo es de lectura para clientes y lavaderos.
+- La tabla `pagos` ya existe en `supabase/migrations/0001_esquema.sql` (estados `retenido`, `capturado`, `reembolsado`, `fallido`) y solo es de lectura para clientes y lavaderos.
 - Las claves de Stripe viven solo en el backend (variables de entorno); la app nunca ve la clave secreta.
 - Endpoints previstos: `POST /reservas/:id/pago`, `POST /reservas/:id/completar`, `POST /reservas/:id/cancelar`, `POST /webhooks/stripe`.
 
