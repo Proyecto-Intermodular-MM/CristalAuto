@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CristalAuto · Prototipo de pantallas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Poppins:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#1A233C;--crema:#F4F0D2;--amarillo:#FFC30F;--agua:#3FA9F5}
+*{box-sizing:border-box}
+body{margin:0;background:#dfe3ec;font-family:Poppins,sans-serif;color:var(--noche);padding:24px 16px}
+h1,h2,h3{font-family:Montserrat,sans-serif;font-weight:800;margin:0}
+.intro{max-width:900px;margin:0 auto 24px}
+.intro p{margin:8px 0 0}
+.fila{display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+.col{display:flex;flex-direction:column;align-items:center;gap:8px}
+.col>span{font-size:14px}
+.tel{width:300px;height:600px;background:var(--crema);border:8px solid var(--noche);border-radius:32px;overflow:hidden;display:flex;flex-direction:column}
+.bar{background:var(--noche);color:var(--crema);padding:16px;display:flex;align-items:center;gap:8px}
+.bar h2{font-size:18px}
+.gota{width:22px;height:22px;background:var(--agua);border-radius:50% 50% 50% 0;transform:rotate(-45deg);flex:none}
+.cuerpo{padding:12px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.tarjeta{background:#fff;border-radius:12px;padding:10px 12px;border:1px solid #e1dcb4;font-size:13px}
+.tarjeta b{font-size:14px}
+.est{color:#a87d00;font-size:13px}
+.btn{background:var(--amarillo);color:var(--noche);border:0;border-radius:24px;padding:12px;font:inherit;font-weight:400;text-align:center;font-size:14px;cursor:pointer;margin-top:auto}
+.btn.sec{background:var(--noche);color:var(--crema)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--noche);color:var(--crema);border-radius:14px;padding:3px 10px;font-size:12px}
+.chip.on{background:var(--agua);color:var(--noche)}
+.horas{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hora{border:1px solid var(--noche);border-radius:10px;text-align:center;padding:6px;font-size:13px;background:#fff}
+.hora.on{background:var(--agua);border-color:var(--agua)}
+.nota{font-size:12px;opacity:.8}
+.estrellas{font-size:26px;color:var(--amarillo);letter-spacing:4px}
+.pie{max-width:900px;margin:24px auto 0;font-size:13px}
+@media (max-width:360px){.tel{width:100%}}
+</style>
+</head>
+<body>
+<div class="intro">
+<h1>CristalAuto · Prototipo de pantallas</h1>
+<p>Maqueta estática (no funcional) del flujo del MVP: comparar → detalle del servicio → reservar → reseña. Paleta #1A233C · #FFC30F · #3FA9F5 · #F4F0D2, Montserrat ExtraBold y Poppins Regular.</p>
+</div>
+<div class="fila">
+
+<div class="col"><span>1 · Comparar lavaderos</span>
+<div class="tel"><div class="bar"><div class="gota"></div><h2>CristalAuto</h2></div>
+<div class="cuerpo">
+<div class="chips"><span class="chip on">Todos</span><span class="chip">Lavado</span><span class="chip">Detallado</span><span class="chip">Mejor valorados</span></div>
+<div class="tarjeta"><b>Lavadero Ejemplo A</b><br><span class="est">★★★★★ 4,9</span> · 120 reseñas<br>Desde 25 € · a domicilio</div>
+<div class="tarjeta"><b>Detailing Ejemplo B</b><br><span class="est">★★★★☆ 4,6</span> · 64 reseñas<br>Desde 40 € · a domicilio</div>
+<div class="tarjeta"><b>Lavadero Ejemplo C</b><br><span class="est">★★★★☆ 4,4</span> · 31 reseñas<br>Desde 20 € · a domicilio</div>
+<div class="nota">Datos de ejemplo. Reseñas verificadas: solo de citas completadas.</div>
+</div></div></div>
+
+<div class="col"><span>2 · Detalle del servicio</span>
+<div class="tel"><div class="bar"><div class="gota"></div><h2>Lavadero Ejemplo A</h2></div>
+<div class="cuerpo">
+<div class="estrellas">★★★★★</div>
+<div class="tarjeta"><b>Lavado completo</b><br>Exterior + interior · 90 min<br><b>40 €</b></div>
+<div class="tarjeta"><b>Solo exterior</b><br>45 min · <b>25 €</b></div>
+<div class="tarjeta"><b>Reseñas recientes</b><br>«Puntuales y el coche impecable.» — verificada ✔</div>
+<button class="btn">Reservar</button>
+</div></div></div>
+
+<div class="col"><span>3 · Reservar hora exacta</span>
+<div class="tel"><div class="bar"><div class="gota"></div><h2>Tu reserva</h2></div>
+<div class="cuerpo">
+<div class="tarjeta"><b>Lavado completo · 40 €</b></div>
+<div><b style="font-size:13px">Día</b><div class="chips" style="margin-top:6px"><span class="chip on">Sáb 21</span><span class="chip">Dom 22</span><span class="chip">Lun 23</span></div></div>
+<div><b style="font-size:13px">Hora</b><div class="horas" style="margin-top:6px"><div class="hora">09:00</div><div class="hora on">10:30</div><div class="hora">12:00</div><div class="hora">16:00</div><div class="hora">17:30</div><div class="hora">19:00</div></div></div>
+<div class="tarjeta">Dirección: Calle Ejemplo 1</div>
+<div class="nota">El pago queda retenido hasta que el servicio esté completado.</div>
+<button class="btn">Confirmar y pagar</button>
+</div></div></div>
+
+<div class="col"><span>4 · Reseña tras la cita</span>
+<div class="tel"><div class="bar"><div class="gota"></div><h2>¿Qué tal fue?</h2></div>
+<div class="cuerpo">
+<div class="tarjeta"><b>Lavado completo</b><br>Completado · sáb 21, 10:30</div>
+<div class="estrellas">★★★★☆</div>
+<div class="tarjeta" style="min-height:90px">Cuéntanos tu experiencia…</div>
+<div class="nota">Solo puedes reseñar una cita completada, una vez por cita.</div>
+<button class="btn">Publicar reseña</button>
+<button class="btn sec" style="margin-top:0">Más tarde</button>
+</div></div></div>
+
+</div>
+<p class="pie">Prototipo de baja fidelidad para la tarea Diseñador #3. Los nombres, precios y reseñas son ejemplos ficticios.</p>
+</body>
+</html>
