@@ -1,0 +1,46 @@
+name: Kanban snapshot
+
+# Copia el estado del Project 1 (Kanban) a docs/kanban/kanban.json
+# para que la diapositiva del Kanban en Canva se pueda actualizar sola.
+on:
+  schedule:
+    - cron: "17 * * * *"   # cada hora
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, closed, reopened, assigned, unassigned]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kanban-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Leer el Project
+        env:
+          GH_TOKEN: ${{ secrets.PROJECT_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Falta el secreto PROJECT_TOKEN (token con permiso read:project)."
+            exit 1
+          fi
+          python3 .github/scripts/kanban_snapshot.py
+
+      - name: Guardar si ha cambiado
+        run: |
+          if git diff --quiet -- docs/kanban/kanban.json && git ls-files --error-unmatch docs/kanban/kanban.json >/dev/null 2>&1; then
+            echo "Sin cambios en el Kanban."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/kanban/kanban.json
+          git commit -m "chore(kanban): actualizar copia del tablero [skip ci]"
+          git pull --rebase
+          git push
