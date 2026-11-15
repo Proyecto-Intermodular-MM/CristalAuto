@@ -6,7 +6,7 @@ CristalAuto es una app para **comparar, reservar, pagar y valorar lavados de coc
 
 | Enlaces | |
 |---|---|
-| Tablero Kanban (GitHub Project) | <https://github.com/orgs/Proyecto-Intermodular-MM/projects/1> |
+| Tablero Kanban (GitHub Project) | <https://github.com/orgs/CristalAuto/projects/1> |
 | Presentación (Canva) | <https://www.canva.com/d/SaNKTR3gMCf32qh> |
 
 > Estado: esqueleto de Flutter, sin funcionalidad todavía. Este README describe el producto que se va a construir.
