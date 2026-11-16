@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Release candidates (tags containing -rc) are built as debug and published as pre-releases.
+    uses: ./.github/workflows/build.yml
+    with:
+      build_type: ${{ contains(github.ref_name, '-rc') && 'debug' || 'release' }}
+
+  release:
+    name: publish release
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download android
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: android
+          path: dist
+
+      - name: Download ios
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: ios
+          path: dist
+
+      - name: Publish
+        uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
+        with:
+          draft: true
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-rc') }}
+          files: |
+            dist/*.apk
+            dist/*.ipa

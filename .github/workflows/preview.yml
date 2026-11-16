@@ -1,0 +1,76 @@
+name: Web preview
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  FLUTTER_VERSION: '3.47.8'
+  CI: true
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+jobs:
+  deploy:
+    name: deploy (cloudflare pages)
+    runs-on: ubuntu-latest
+    # Fork PRs get no secrets, and nothing deploys until the Cloudflare secrets exist.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Check secrets
+        id: secrets
+        run: echo "ok=${{ env.CLOUDFLARE_API_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.secrets.outputs.ok == 'true'
+
+      - name: Setup Flutter
+        if: steps.secrets.outputs.ok == 'true'
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        if: steps.secrets.outputs.ok == 'true'
+        run: flutter pub get
+
+      - name: Build Web
+        if: steps.secrets.outputs.ok == 'true'
+        run: flutter build web --release
+
+      # Creates the Pages project on the first run; fails harmlessly once it already exists.
+      - name: Ensure Pages project
+        if: steps.secrets.outputs.ok == 'true'
+        continue-on-error: true
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create cristal-auto --production-branch=main
+
+      - name: Deploy
+        id: deploy
+        if: steps.secrets.outputs.ok == 'true'
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build/web --project-name=cristal-auto --branch=${{ github.head_ref || github.ref_name }}
+
+      - name: Comment preview URL
+        if: steps.secrets.outputs.ok == 'true' && github.event_name == 'pull_request'
+        uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+        with:
+          message: "Web preview: ${{ steps.deploy.outputs.pages-deployment-alias-url }}"

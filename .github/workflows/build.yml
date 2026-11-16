@@ -1,0 +1,151 @@
+name: Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: Build type (web is always release)
+        default: release
+        type: choice
+        options: [release, debug]
+  workflow_call:
+    inputs:
+      build_type:
+        description: Build type (web is always release)
+        default: release
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: '3.47.8'
+  CI: true
+  BUILD_TYPE: ${{ inputs.build_type }}
+
+jobs:
+  build-android:
+    name: build (android, ${{ inputs.build_type }})
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --${{ env.BUILD_TYPE }}${{ env.BUILD_TYPE == 'release' && ' --obfuscate --split-debug-info=symbols' || '' }}
+
+      - name: Verify artifact
+        run: |
+          f="build/app/outputs/flutter-apk/app-${BUILD_TYPE}.apk"
+          if [ ! -f "$f" ]; then
+            echo "missing: $f"
+            exit 1
+          fi
+          echo "$f $(stat -c%s "$f") bytes"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: android
+          path: build/app/outputs/flutter-apk/app-${{ env.BUILD_TYPE }}.apk
+          retention-days: 14
+
+      # Needed to de-obfuscate release stack traces.
+      - name: Upload symbols
+        if: env.BUILD_TYPE == 'release'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: symbols-android
+          path: symbols/
+          retention-days: 14
+
+  build-ios:
+    name: build (ios, ${{ inputs.build_type }})
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build iOS
+        run: flutter build ios --${{ env.BUILD_TYPE }} --no-codesign${{ env.BUILD_TYPE == 'release' && ' --obfuscate --split-debug-info=symbols' || '' }}
+
+      # shortcut: unsigned ipa, add signing secrets + flutter build ipa when an Apple Developer account exists
+      - name: Package unsigned ipa
+        run: |
+          app="build/ios/iphoneos/Runner.app"
+          if [ ! -d "$app" ]; then
+            echo "missing: $app"
+            exit 1
+          fi
+          mkdir Payload && cp -R "$app" Payload/
+          zip -qr cristal-auto-unsigned.ipa Payload
+          echo "cristal-auto-unsigned.ipa $(stat -f%z cristal-auto-unsigned.ipa) bytes"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ios
+          path: cristal-auto-unsigned.ipa
+          retention-days: 14
+
+      - name: Upload symbols
+        if: env.BUILD_TYPE == 'release'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: symbols-ios
+          path: symbols/
+          retention-days: 14
+
+  build-web:
+    name: build (web)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore
+        run: flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release
+
+      - name: Verify artifacts
+        run: |
+          for f in build/web/index.html build/web/main.dart.js; do
+            if [ ! -f "$f" ]; then
+              echo "missing: $f"
+              exit 1
+            fi
+            echo "$f $(stat -c%s "$f") bytes"
+          done
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: web
+          path: build/web/
+          retention-days: 14
